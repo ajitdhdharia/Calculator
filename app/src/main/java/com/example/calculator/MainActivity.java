@@ -12,7 +12,7 @@ public class MainActivity extends AppCompatActivity {
 
     private EditText result;
     private EditText newNumber;
-    private TextView operations;
+    private TextView displayOperations;
 
     //to set operand and type of calculations
     private Double operand1 = null;
@@ -27,7 +27,7 @@ public class MainActivity extends AppCompatActivity {
 
         result = findViewById(R.id.result);
         newNumber = findViewById(R.id.newNumber);
-        operations = findViewById(R.id.operation);
+        displayOperations = findViewById(R.id.operation);
 
         Button button0 = findViewById(R.id.button0);
         Button button1 = findViewById(R.id.button1);
@@ -68,5 +68,63 @@ public class MainActivity extends AppCompatActivity {
         button8.setOnClickListener(listener);
         button9.setOnClickListener(listener);
         buttonDot.setOnClickListener(listener);
+
+        View.OnClickListener opListener = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Button b = (Button) v;
+                String op = b.getText().toString();
+                String value = newNumber.getText().toString();
+                if (value != null) {
+                    performOperation(value, op);
+                }
+                pendingOperation = op;
+                displayOperations.setText(pendingOperation);
+
+            }
+        };
+
+        buttonEqual.setOnClickListener(opListener);
+        buttonDivide.setOnClickListener(opListener);
+        buttonMultiply.setOnClickListener(opListener);
+        buttonPlus.setOnClickListener(opListener);
+        buttonMinus.setOnClickListener(opListener);
+
+    }
+
+    private void performOperation(String value, String op) {
+        if (null == operand1) {
+            operand1 = Double.valueOf(value);
+        } else {
+            operand2 = Double.valueOf(value);
+
+            if (pendingOperation.equals("=")) {
+                pendingOperation = op;
+            }
+            switch (pendingOperation) {
+                case "=":
+                    operand1 = operand2;
+                    break;
+                case "/":
+                    if (operand2 == 0) {
+                        operand1 = 0.0;
+                    } else {
+                        operand1 /= operand2;
+                    }
+                    break;
+                case "*":
+                    operand1 *= operand2;
+                    break;
+                case "-":
+                    operand1 -= operand2;
+                    break;
+                case "+":
+                    operand1 += operand2;
+                    break;
+            }
+        }
+
+        result.setText(operand1.toString());
+        newNumber.setText("");
     }
 }
