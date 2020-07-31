@@ -11,7 +11,7 @@ import android.widget.TextView;
 public class MainActivity extends AppCompatActivity {
 
     private EditText mResult;
-    private EditText newNumber;
+    private EditText mNewNumber;
     private TextView displayOperations;
 
     //to set operand and type of calculations
@@ -26,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         mResult = findViewById(R.id.result);
-        newNumber = findViewById(R.id.newNumber);
+        mNewNumber = findViewById(R.id.newNumber);
         displayOperations = findViewById(R.id.operation);
 
         Button button0 = findViewById(R.id.button0);
@@ -51,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Button b = (Button) v;
-                newNumber.append(b.getText().toString());
+                mNewNumber.append(b.getText().toString());
                 // setText(): Destroys the buffer content by filling the text to be set.
                 // append(): Adds a text to a buffer and then prints the result.
             }
@@ -74,7 +74,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Button b = (Button) v;
                 String op = b.getText().toString();
-                String value = newNumber.getText().toString();
+                String value = mNewNumber.getText().toString();
                 if (value != null) {
                     performOperation(value, op);
                 }
@@ -125,6 +125,6 @@ public class MainActivity extends AppCompatActivity {
         }
 
         mResult.setText(operand1.toString());
-        newNumber.setText("");
+        mNewNumber.setText("");
     }
 }
