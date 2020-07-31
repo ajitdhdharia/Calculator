@@ -10,7 +10,7 @@ import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
 
-    private EditText result;
+    private EditText mResult;
     private EditText newNumber;
     private TextView displayOperations;
 
@@ -25,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        result = findViewById(R.id.result);
+        mResult = findViewById(R.id.result);
         newNumber = findViewById(R.id.newNumber);
         displayOperations = findViewById(R.id.operation);
 
@@ -124,7 +124,7 @@ public class MainActivity extends AppCompatActivity {
             }
         }
 
-        result.setText(operand1.toString());
+        mResult.setText(operand1.toString());
         newNumber.setText("");
     }
 }
